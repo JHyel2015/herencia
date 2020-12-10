@@ -14,17 +14,7 @@ public class PersonaManager {
 	public PersonaManager() throws InstanceException {
 		super();
 		Class<?> clase;
-		Properties p = new Properties();
-		try {
-			p.load(new FileReader("config.properties"));
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-			throw new InstanceException("Error al obtener una instancia de ServicioPersona");
-		} catch (IOException e) {
-			e.printStackTrace();
-			throw new InstanceException("Error al obtener una instancia de ServicioPersona");
-		}
-		String propiedad = p.getProperty("propiedad1");
+		String propiedad = leerPropiedad("propiedad1");
 		try {
 			clase = Class.forName(propiedad);
 			this.serv = (ServicioPersona) clase.newInstance();
@@ -50,6 +40,21 @@ public class PersonaManager {
 
 	public void insertarPersona(Persona persona) {
 		serv.insertar(persona);
+	}
+	
+	private String leerPropiedad(String propiedad) throws InstanceException {
+
+		Properties p = new Properties();
+		try {
+			p.load(new FileReader("config.properties"));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			throw new InstanceException("Error al obtener una instancia de ServicioPersona");
+		} catch (IOException e) {
+			e.printStackTrace();
+			throw new InstanceException("Error al obtener una instancia de ServicioPersona");
+		}
+		return p.getProperty(propiedad);
 	}
 
 }
