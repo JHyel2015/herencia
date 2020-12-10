@@ -1,15 +1,27 @@
 package com.clearminds.model;
 
-import com.clearminds.impl.ServicioPersonaArchivos;
-import com.clearminds.impl.ServicioPersonaBDD;
+import com.clearminds.excepciones.InstanceException;
 import com.clearminds.interfaces.ServicioPersona;
 
 public class PersonaManager {
 	private ServicioPersona serv;
 
-	public PersonaManager() {
+	public PersonaManager(String claseInstancia) throws InstanceException {
 		super();
-		this.serv = new ServicioPersonaBDD();
+		Class<?> clase;
+		try {
+			clase = Class.forName(claseInstancia);
+			this.serv = (ServicioPersona) clase.newInstance();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+			throw new InstanceException("Error al obtener una instancia de ServicioPersona");
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+			throw new InstanceException("Error al obtener una instancia de ServicioPersona");
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+			throw new InstanceException("Error al obtener una instancia de ServicioPersona");
+		}
 	}
 
 	public ServicioPersona getServ() {
@@ -19,11 +31,9 @@ public class PersonaManager {
 	public void setServ(ServicioPersona serv) {
 		this.serv = serv;
 	}
-	
+
 	public void insertarPersona(Persona persona) {
-		serv = new ServicioPersonaArchivos();
 		serv.insertar(persona);
 	}
-	
-	
+
 }
