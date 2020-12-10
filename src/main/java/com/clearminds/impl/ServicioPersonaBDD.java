@@ -1,4 +1,7 @@
-package com.clearminds.model;
+package com.clearminds.impl;
+
+import com.clearminds.interfaces.ServicioPersona;
+import com.clearminds.model.Persona;
 
 public class ServicioPersonaBDD implements ServicioPersona{
 

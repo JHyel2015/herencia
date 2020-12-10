@@ -1,4 +1,7 @@
-package com.clearminds.model;
+package com.clearminds.test;
+
+import com.clearminds.model.Persona;
+import com.clearminds.model.PersonaManager;
 
 public class TestManager {
 

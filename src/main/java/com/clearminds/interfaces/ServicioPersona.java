@@ -1,4 +1,6 @@
-package com.clearminds.model;
+package com.clearminds.interfaces;
+
+import com.clearminds.model.Persona;
 
 public interface ServicioPersona {
 
