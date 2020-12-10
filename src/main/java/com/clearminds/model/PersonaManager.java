@@ -1,16 +1,32 @@
 package com.clearminds.model;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Properties;
+
 import com.clearminds.excepciones.InstanceException;
 import com.clearminds.interfaces.ServicioPersona;
 
 public class PersonaManager {
 	private ServicioPersona serv;
 
-	public PersonaManager(String claseInstancia) throws InstanceException {
+	public PersonaManager() throws InstanceException {
 		super();
 		Class<?> clase;
+		Properties p = new Properties();
 		try {
-			clase = Class.forName(claseInstancia);
+			p.load(new FileReader("config.properties"));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			throw new InstanceException("Error al obtener una instancia de ServicioPersona");
+		} catch (IOException e) {
+			e.printStackTrace();
+			throw new InstanceException("Error al obtener una instancia de ServicioPersona");
+		}
+		String propiedad = p.getProperty("propiedad1");
+		try {
+			clase = Class.forName(propiedad);
 			this.serv = (ServicioPersona) clase.newInstance();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();

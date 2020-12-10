@@ -14,17 +14,8 @@ public class TestManager {
 	public static void main(String[] args) {
 
 		PersonaManager personaManager;
-		Properties p = new Properties();
 		try {
-			p.load(new FileReader("config.properties"));
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		String propiedad = p.getProperty("propiedad1");
-		try {
-			personaManager = new PersonaManager(propiedad);
+			personaManager = new PersonaManager();
 			personaManager.insertarPersona(new Persona("Luis", "Casa", 25));
 		} catch (InstanceException e) {
 			e.printStackTrace();
